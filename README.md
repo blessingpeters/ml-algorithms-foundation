@@ -91,23 +91,24 @@ ML/
 - Applied **PCA** to the **Breast Cancer Wisconsin dataset** (30 numerical features).
 - Determined that **7 components** retain at least 90% of the variance, using a cumulative explained variance curve.
 - Built a **2D projection** (PC1 vs PC2, 63% of variance) that still separates malignant from benign tumours.
+- Built a **dendrogram** (Ward linkage) on the PCA data, which shows 2 natural groups in the data.
 - Explained what information is retained and what is lost when reducing dimensions.
 
 ### 11. Feature Engineering
-- Engineered features on the raw **Titanic dataset**, learning every fill value from the training split only.
-- Handled missing values with group-median imputation, a missing-value flag, mode filling, and an "Unknown" category.
-- Encoded categorical variables (binary and one-hot encoding).
-- Created new features: `family_size`, `fare_per_person`, `is_child`, and `female_in_upper_class`.
-- Removed duplicate, redundant, and **target-leaking** features (`alive`).
-- Raised test accuracy from ~68–70% to ~78–79% and explained how each transformation improves performance.
+- Engineered features on the raw **Titanic dataset**.
+- Handled missing values (median for `age`, most common value for `embarked`, dropped the mostly empty `deck`).
+- Created new features: `family_size`, `fare_per_person`, and `is_child`.
+- Removed duplicate and **target-leaking** features (`alive`).
+- Encoded categorical variables with `OneHotEncoder` and scaled numerical ones with `StandardScaler`
+  in a `ColumnTransformer`.
+- Raised Logistic Regression test accuracy from 71.5% (raw numeric columns) to 79.9% after feature engineering.
+- Explained how each transformation could improve model performance.
 
 ### 12. Feature Selection & Pipelines
-- Built a reusable scikit-learn **Pipeline** on the raw **Telco Customer Churn dataset**.
-- Automated data-type fixing, missing-value imputation (`SimpleImputer`), scaling (`StandardScaler`),
-  and one-hot encoding (`OneHotEncoder`) with a `ColumnTransformer`, followed by model training and prediction.
-- Predicted on raw test data with no manual preprocessing (80.6% accuracy, 0.842 ROC-AUC).
-- Demonstrated reusability: swapping models, predicting for new customers with missing or unseen values,
-  and saving/reloading the fitted pipeline with `joblib`.
+- Built a reusable scikit-learn **Pipeline** on the **Telco Customer Churn dataset**.
+- Automated missing-value imputation (`SimpleImputer`), scaling (`StandardScaler`), and one-hot
+  encoding (`OneHotEncoder`) with a `ColumnTransformer`, followed by a Logistic Regression model.
+- Trained and predicted on raw data with no manual preprocessing of the test set (82.1% test accuracy).
 
 ## 🛠️ Tools & Libraries
 - Python
@@ -115,7 +116,6 @@ ML/
 - matplotlib, seaborn
 - scikit-learn (`sklearn`)
 - xgboost
-- joblib
 
 ## 🎯 Purpose
 This repository is a personal learning log for practicing supervised and unsupervised
